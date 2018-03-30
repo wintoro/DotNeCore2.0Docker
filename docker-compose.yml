@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  catalogmicroservicesdocker:
+    image: catalogmicroservicesdocker
+    build:
+      context: .
+      dockerfile: CatalogMicroservicesDocker\Dockerfile
