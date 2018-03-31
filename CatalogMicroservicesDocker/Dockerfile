@@ -1,21 +1,17 @@
-FROM microsoft/aspnetcore:2.0-nanoserver-1709 AS base
+FROM microsoft/aspnetcore-build:2.0 AS build-env
 WORKDIR /app
 EXPOSE 83
 
-FROM microsoft/aspnetcore-build:2.0-nanoserver-1709 AS build
-WORKDIR /src
-COPY CatalogMicroservicesDocker.sln ./
-COPY CatalogMicroservicesDocker/CatalogMicroservicesDocker.csproj CatalogMicroservicesDocker/
-RUN dotnet restore -nowarn:msb3202,nu1503
-COPY . .
-WORKDIR /src/CatalogMicroservicesDocker
-RUN dotnet build -c Release -o /app
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish -c Release -o /app
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+# Build runtime image
+FROM microsoft/aspnetcore:2.0
 WORKDIR /app
-EXPOSE 83
-COPY --from=publish /app .
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "CatalogMicroservicesDocker.dll"]
