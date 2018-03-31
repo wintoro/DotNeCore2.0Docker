@@ -1,3 +1,5 @@
+Learn Docker with .NET Core 2.0
+
 based on tutorial from https://www.3pillarglobal.com/insights/develop-microservices-net-core-docker
 
 Issue #1:
