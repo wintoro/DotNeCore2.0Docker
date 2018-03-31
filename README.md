@@ -1,5 +1,4 @@
-article
-https://www.3pillarglobal.com/insights/develop-microservices-net-core-docker
+based on tutorial from https://www.3pillarglobal.com/insights/develop-microservices-net-core-docker
 
 Issue #1:
 Can't access api from  localhost with assigned port
