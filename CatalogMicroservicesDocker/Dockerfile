@@ -16,5 +16,6 @@ RUN dotnet publish -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
+EXPOSE 83
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "CatalogMicroservicesDocker.dll"]
